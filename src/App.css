@@ -36,3 +36,37 @@
     transform: rotate(360deg);
   }
 }
+
+.navbar--custom {
+  background-color: #221f1f !important;
+}
+
+.navbar__logo {
+  width: 100px;
+  height: 55px;
+}
+
+.navbar-nav .nav-link {
+  color: white;
+}
+
+.navbar-nav .nav-link.active {
+  font-weight: bold;
+}
+
+.navbar-toggler {
+  border-color: white;
+}
+
+.navbar-toggler-icon {
+  background-color: white;
+}
+
+.navbar-toggler:focus,
+.navbar-toggler:active {
+  outline: none;
+}
+
+.navbar-nav .nav-link:hover {
+  color: lightgray;
+}
