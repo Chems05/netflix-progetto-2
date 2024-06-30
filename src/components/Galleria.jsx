@@ -1,40 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { Component } from "react";
 
-const Gallery = ({ title, ids }) => {
-  const [movies, setMovies] = useState([]);
+class Gallery extends Component {
+  state = { movies: [] };
 
-  useEffect(() => {
-    const fetchMovies = async () => {
-      try {
-        const promises = ids.map((id) =>
-          fetch(`http://www.omdbapi.com/?apikey=9eceb079&i=${id}`).then(
-            (response) => response.json()
-          )
-        );
-        const moviesData = await Promise.all(promises);
-        setMovies(moviesData);
-      } catch (error) {
-        console.error("Error fetching movies:", error);
-      }
-    };
+  fetchMovies = () => {
+    fetch(`http://www.omdbapi.com/?apikey=9eceb079&s=${this.props.saga}`)
+      .then((response) => response.json())
+      .then((moviesObject) => this.setState({ movies: moviesObject.Search }));
+  };
 
-    fetchMovies();
-  }, [ids]);
+  componentDidMount() {
+    this.fetchMovies();
+  }
 
-  return (
-    <div className="gallery">
-      <h2>{title}</h2>
-      <div className="movie-list">
-        {movies.map((movie) => (
-          <div key={movie.imdbID} className="movie">
-            <img src={movie.Poster} alt={movie.Title} />
-            <h3>{movie.Title}</h3>
-            <p>{movie.Year}</p>
-          </div>
-        ))}
+  render() {
+    return (
+      <div className="gallery row">
+        <h2>{this.props.saga}</h2>
+        <div className="movie-row">
+          {this.state.movies.map((movie) => (
+            <div key={movie.imdbID} className="movie">
+              <img src={movie.Poster} alt={movie.Title} />
+              <h3>{movie.Title}</h3>
+              <p>{movie.Year}</p>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
-  );
-};
-
+    );
+  }
+}
 export default Gallery;
