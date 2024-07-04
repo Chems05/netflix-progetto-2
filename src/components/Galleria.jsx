@@ -14,12 +14,16 @@ class Gallery extends Component {
   }
 
   render() {
+    const moviesToDisplay = this.state.movies.slice(0, 6);
     return (
-      <div className="gallery row">
+      <div className="gallery container">
         <h2>{this.props.saga}</h2>
-        <div className="movie-row">
-          {this.state.movies.map((movie) => (
-            <div key={movie.imdbID} className="movie">
+        <div className="row">
+          {moviesToDisplay.map((movie) => (
+            <div
+              key={movie.imdbID}
+              className="movie col-lg-3 col-md-4 col-sm-6 mb-4"
+            >
               <img src={movie.Poster} alt={movie.Title} />
               <h3>{movie.Title}</h3>
               <p>{movie.Year}</p>
